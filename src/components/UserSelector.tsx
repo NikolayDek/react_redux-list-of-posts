@@ -4,9 +4,6 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectAuthor } from '../features/author/authorSlice';
 
 export const UserSelector: React.FC = () => {
-  // `users` are loaded from the API, so for the performance reasons
-  // we load them once in the `UsersContext` when the `App` is opened
-  // and now we can easily reuse the `UserSelector` in any form
   const dispatch = useAppDispatch();
   const { users } = useAppSelector(state => state.users);
   const { author: selectedUser } = useAppSelector(state => state.author);

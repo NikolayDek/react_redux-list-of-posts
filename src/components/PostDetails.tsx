@@ -82,7 +82,7 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
       // works wrong if we wrap `addComment` with `useCallback`
       // because it takes the `comments` cached during the first render
       // not the actual ones
-    } catch (error) {
+    } catch {
       // we show an error message in case of any error
       dispatch(setHasError(true));
     }
@@ -92,9 +92,13 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
     // we delete the comment immediately so as
     // not to make the user wait long for the actual deletion
     // eslint-disable-next-line max-len
-    dispatch(setComments(comments.filter(comment => comment.id !== commentId)));
+    try {
+      dispatch(setComments(comments.filter(comment => comment.id !== commentId)));
 
-    await commentsApi.deleteComment(commentId);
+      await commentsApi.deleteComment(commentId);
+    } catch {
+      dispatch(setHasError(true));
+    };
   };
 
   return (
