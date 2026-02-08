@@ -33,7 +33,6 @@ export const App: React.FC = () => {
     getUserPosts(userId)
       .then(postsFromServer => dispatch(setPosts(postsFromServer)))
       .catch(() => dispatch(setHasError(true)))
-      // We disable the spinner in any case
       .finally(() => dispatch(setLoaded(true)));
   }
 
