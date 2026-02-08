@@ -38,7 +38,7 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
       .finally(() => dispatch(setLoaded(true))); // hide the spinner
   }
 
-  useEffect(loadComments, [post.id]);
+  useEffect(loadComments, [post.id, dispatch]);
 
   // The same useEffect with async/await
   /*
@@ -93,12 +93,14 @@ export const PostDetails: React.FC<Props> = ({ post }) => {
     // not to make the user wait long for the actual deletion
     // eslint-disable-next-line max-len
     try {
-      dispatch(setComments(comments.filter(comment => comment.id !== commentId)));
+      dispatch(
+        setComments(comments.filter(comment => comment.id !== commentId)),
+      );
 
       await commentsApi.deleteComment(commentId);
     } catch {
       dispatch(setHasError(true));
-    };
+    }
   };
 
   return (
